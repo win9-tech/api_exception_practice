@@ -1,4 +1,4 @@
-package com.umcpractice.chapter_5.domain.food_category;
+package com.umcpractice.chapter_5.domain.food_category.entity;
 
 import com.umcpractice.chapter_5.common.BaseEntity;
 import jakarta.persistence.Entity;

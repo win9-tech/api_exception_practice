@@ -2,7 +2,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -10,7 +10,7 @@ spring:
         highlight_sql: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/7th_Springboot
+    url: jdbc:mysql://localhost:3306/api_exception_practice
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -1,8 +1,8 @@
 services:
-  mysql:
+  mysql2:
     image: 'mysql:latest'
     environment:
-      - 'MYSQL_DATABASE=7th_Springboot'
+      - 'MYSQL_DATABASE=api_exception_practice'
       - 'MYSQL_ROOT_PASSWORD=root'
     ports:
       - '3306:3306'
