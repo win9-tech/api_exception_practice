@@ -1,6 +1,7 @@
 package com.umcpractice.chapter_5.domain.member.controller;
 
 import com.umcpractice.chapter_5.api.ApiResponse;
+import com.umcpractice.chapter_5.domain.member.convertor.MemberConverter;
 import com.umcpractice.chapter_5.domain.member.dto.request.MemberRequestDto;
 import com.umcpractice.chapter_5.domain.member.dto.response.MemberResponse;
 import com.umcpractice.chapter_5.domain.member.service.MemberService;
@@ -16,11 +17,11 @@ public class MemberController {
 
     @PostMapping
     public ApiResponse<MemberResponse.MemberDto> createMember(@RequestBody MemberRequestDto requestDto) {
-        return ApiResponse.onSuccess(memberService.createMember(requestDto));
+        return ApiResponse.onSuccess(MemberConverter.toDto(memberService.createMember(requestDto)));
     }
 
     @GetMapping
     public ApiResponse<MemberResponse.MemberDto> getMember(@RequestBody MemberRequestDto requestDto) {
-        return ApiResponse.onSuccess(memberService.getMember(requestDto));
+        return ApiResponse.onSuccess(MemberConverter.toDto(memberService.getMember(requestDto)));
     }
 }
