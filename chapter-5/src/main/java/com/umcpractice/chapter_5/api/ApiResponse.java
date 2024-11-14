@@ -3,6 +3,7 @@ package com.umcpractice.chapter_5.api;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.umcpractice.chapter_5.api.code.status.BaseCode;
 import com.umcpractice.chapter_5.api.code.status.SuccessStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,11 +24,12 @@ public class ApiResponse<T> {
         return new ApiResponse<>(true, SuccessStatus._OK.getCode(), SuccessStatus._OK.getMessage(), result);
     }
 
+    public static <T> ApiResponse<T> onSuccess(T result, BaseCode code){
+            return new ApiResponse<>(true, code.getReasonHttpStatus().getCode() , code.getReasonHttpStatus().getMessage(), result);
+    }
+
     public static <T> ApiResponse<T> onFailure(String code, String message, T data) {
         return new ApiResponse<>(false, code, message, data);
     }
 }
 
-//    public static <T> ApiResponse<T> of(BaseCode code, T result){
-//            return new ApiResponse<>(true, code.getReasonHttpStatus().getCode() , code.getReasonHttpStatus().getMessage(), result);
-//    }

@@ -1,7 +1,7 @@
 package com.umcpractice.chapter_5.domain.member_prefer;
 
 import com.umcpractice.chapter_5.common.BaseEntity;
-import com.umcpractice.chapter_5.domain.food_category.FoodCategory;
+import com.umcpractice.chapter_5.domain.food_category.entity.FoodCategory;
 import com.umcpractice.chapter_5.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
