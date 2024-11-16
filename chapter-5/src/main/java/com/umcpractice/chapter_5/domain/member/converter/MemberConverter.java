@@ -1,4 +1,4 @@
-package com.umcpractice.chapter_5.domain.member.convertor;
+package com.umcpractice.chapter_5.domain.member.converter;
 
 import com.umcpractice.chapter_5.domain.member.dto.response.MemberResponse;
 import com.umcpractice.chapter_5.domain.member.entity.Member;
@@ -11,6 +11,7 @@ public class MemberConverter {
                 member.getName(),
                 member.getEmail(),
                 member.getGender(),
-                member.getPoint());
+                member.getPoint()
+        );
     }
 }

@@ -3,6 +3,6 @@ package com.umcpractice.chapter_5.domain.member.repository;
 import com.umcpractice.chapter_5.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepositoryJPA extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findByName(String name);
 }
