@@ -24,4 +24,11 @@ public class MemberMissionController {
                 .map(MemberMissionConverter::convertToDto)
                 .toList());
     }
+    @GetMapping("/completed")
+    public ApiResponse<List<MemberMissionResponse.MemberMissionDto>> getCompleted(@RequestParam Long memberId,
+                                                                                   @RequestParam Long page) {
+        return ApiResponse.onSuccess(memberMissionService.getCompleted(memberId, page, 3).stream()
+                .map(MemberMissionConverter::convertToDto)
+                .toList());
+    }
 }
