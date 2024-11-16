@@ -25,6 +25,7 @@ public class MemberMissionServiceImpl implements MemberMissionService {
         return memberMissionRepository.findByMemberIdAndStatusOrderByUpdatedAtDesc(memberId, "IN_PROGRESS", pageable).getContent();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<MemberMission> getCompleted(Long memberId, Long page, int size) {
         Pageable pageable = PageRequest.of(page.intValue(), size, Sort.by(Sort.Direction.DESC, "updatedAt"));
