@@ -9,8 +9,7 @@ public class ReviewConverter {
 
         return new ReviewResponse.ReviewDto(
                 review.getBody(),
-                review.getScore(),
-                review.getStore()
+                review.getScore()
         );
     }
 }

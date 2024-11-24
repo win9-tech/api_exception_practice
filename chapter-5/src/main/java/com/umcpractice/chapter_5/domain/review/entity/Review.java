@@ -6,6 +6,7 @@ import com.umcpractice.chapter_5.domain.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
 @Getter
 @Builder
@@ -33,5 +34,9 @@ public class Review extends BaseEntity {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }
