@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {
 
     Page<MemberMission> findByMemberIdAndStatusOrderByUpdatedAtDesc(Long memberId, String inProgress, Pageable pageable);
+
+    boolean existsByMissionId(Long missionId);
 }
