@@ -10,13 +10,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Constraint(validatedBy = StoreExistsValidator.class)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target( { ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface StoreExists {
 
     String message() default "가게가 존재하지 않습니다.";
-
     Class<?>[] groups() default {};
-
     Class<? extends Payload>[] payload() default {};
 }

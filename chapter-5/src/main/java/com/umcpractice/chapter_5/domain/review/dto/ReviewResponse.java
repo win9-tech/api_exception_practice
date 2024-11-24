@@ -15,6 +15,5 @@ public class ReviewResponse {
     public static class ReviewDto{
           String body;
           float score;
-          Store storeId;
     }
 }

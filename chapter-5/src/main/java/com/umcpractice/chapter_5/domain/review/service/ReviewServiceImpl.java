@@ -1,5 +1,7 @@
 package com.umcpractice.chapter_5.domain.review.service;
 
+import com.umcpractice.chapter_5.domain.member.entity.Member;
+import com.umcpractice.chapter_5.domain.member.repository.MemberRepository;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewRequest;
 import com.umcpractice.chapter_5.domain.review.entity.Review;
 import com.umcpractice.chapter_5.domain.review.repository.ReviewRepository;
@@ -17,13 +19,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
+    private final MemberRepository memberRepository;
 
     @Override
-    public Review add(ReviewRequest reviewRequest, MultipartFile file, Long storeId) {
+    public Review add(ReviewRequest reviewRequest, Long storeId) {
+
         Review review = reviewRequest.toEntity();
         Store store = storeRepository.findById(storeId).orElseThrow(RuntimeException::new);
-        // 맴버는 JWT토큰쓸때
-        // 이미지 S3로 저장 url반환하면 그때 review_image 테이블에 저장 여기서는 S3 연결안해서 작성안함
+        review.setMember(memberRepository.getReferenceById(1L));
         review.setStore(store);
         return reviewRepository.save(review);
     }

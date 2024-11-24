@@ -5,10 +5,10 @@ import com.umcpractice.chapter_5.domain.review.converter.ReviewConverter;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewRequest;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewResponse;
 import com.umcpractice.chapter_5.domain.review.service.ReviewService;
+import com.umcpractice.chapter_5.validation.annotation.StoreExists;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/reviews")
@@ -17,12 +17,10 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @PostMapping(consumes = "multipart/form-data")
+    @PostMapping("{storeId}")
     public ApiResponse<ReviewResponse.ReviewDto> add(
-            @Valid @RequestPart("Text") ReviewRequest reviewRequest,
-            @RequestPart("File") MultipartFile file,
-            @RequestPart("StoreId") Long storeId
-    ) {
-        return ApiResponse.onSuccess(ReviewConverter.toDto(reviewService.add(reviewRequest, file, storeId)));
+            @RequestBody @Valid ReviewRequest reviewRequest,
+            @PathVariable @StoreExists Long storeId) {
+        return ApiResponse.onSuccess(ReviewConverter.toDto(reviewService.add(reviewRequest, storeId)));
     }
 }
