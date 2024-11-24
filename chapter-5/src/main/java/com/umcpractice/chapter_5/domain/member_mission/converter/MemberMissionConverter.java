@@ -10,7 +10,7 @@ public class MemberMissionConverter {
     public static MemberMissionResponse.MemberMissionDto convertToDto(MemberMission memberMission) {
         Mission mission = memberMission.getMission();
         Store store = mission.getStore();
-
+        
         return MemberMissionResponse.MemberMissionDto.builder()
                 .storeName(store.getName())
                 .reward(mission.getReward())

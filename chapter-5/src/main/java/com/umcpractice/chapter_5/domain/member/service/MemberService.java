@@ -5,7 +5,5 @@ import com.umcpractice.chapter_5.domain.member.entity.Member;
 
 public interface MemberService {
 
-    Member createMember(MemberRequestDto memberRequestDto);
-
-    Member getMember(MemberRequestDto memberRequestDto);
+    Member join(MemberRequestDto.JoinDto requestDto);
 }
