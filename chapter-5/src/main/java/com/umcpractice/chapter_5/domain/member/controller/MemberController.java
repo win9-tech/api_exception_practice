@@ -6,14 +6,21 @@ import com.umcpractice.chapter_5.domain.member.dto.request.MemberRequestDto;
 import com.umcpractice.chapter_5.domain.member.dto.response.MemberResponseDto;
 import com.umcpractice.chapter_5.domain.member.entity.Member;
 import com.umcpractice.chapter_5.domain.member.service.MemberService;
+import com.umcpractice.chapter_5.domain.review.dto.ReviewResponse;
+import com.umcpractice.chapter_5.domain.review.entity.Review;
+import com.umcpractice.chapter_5.validation.annotation.MemberExists;
+import com.umcpractice.chapter_5.validation.annotation.PageAvailable;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/members")
-public class MemberController {
+public class MemberController implements MemberApiPresentation{
 
     private final MemberService memberService;
 
@@ -21,5 +28,14 @@ public class MemberController {
     public ApiResponse<MemberResponseDto.JoinResultDTO> join(@RequestBody @Valid MemberRequestDto.JoinDto request){
         Member member = memberService.join(request);
         return ApiResponse.onSuccess(MemberConverter.toDto(member));
+    }
+
+    @GetMapping("{memberId}/reviews")
+    public ApiResponse<ReviewResponse.ReviewPreViewListDTO> getReviewList(
+            @MemberExists @PathVariable(name = "memberId") Long memberId,
+            @PageAvailable @RequestParam(name = "page") Integer page
+    ){
+        Page<Review> reviewList = memberService.getReviewList(memberId, page);
+        return ApiResponse.onSuccess(MemberConverter.reviewPreViewListDTO(reviewList));
     }
 }
