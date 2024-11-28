@@ -1,6 +1,5 @@
-package com.umcpractice.chapter_5.congig;
+package com.umcpractice.chapter_5.config.swagger;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

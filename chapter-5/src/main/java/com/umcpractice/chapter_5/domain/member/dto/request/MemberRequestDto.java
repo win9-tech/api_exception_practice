@@ -9,7 +9,7 @@ public class MemberRequestDto {
     @Getter
     public static class JoinDto{
         String name;
-        Integer gender;
+        String gender;
         Integer birthYear;
         Integer birthMonth;
         Integer birthDay;
