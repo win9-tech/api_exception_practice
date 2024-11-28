@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MissionStatus {
 
-    String message() default "미션이 등록된 미션입니다.";
+    String message() default "MISSION_STATUS_CONFLICT";
 
     Class<?>[] groups() default {};
 

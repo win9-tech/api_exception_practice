@@ -14,8 +14,12 @@ public class MissionStatusValidator implements ConstraintValidator<MissionStatus
     private final MemberMissionRepository memberMissionRepository;
 
     @Override
-    public boolean isValid(Long missionId, ConstraintValidatorContext context) {
+    public void initialize(MissionStatus constraintAnnotation) {
+        ConstraintValidator.super.initialize(constraintAnnotation);
+    }
 
+    @Override
+    public boolean isValid(Long missionId, ConstraintValidatorContext context) {
         return !memberMissionRepository.existsByMissionId(missionId);
     }
 }
