@@ -12,7 +12,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class Member extends BaseEntity {
     private String specAddress;
 
     @Column(columnDefinition = "VARCHAR(10)")
-    private Integer gender;
+    private String gender;
 
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private String status;
