@@ -14,6 +14,11 @@ public class StoreExistsValidator implements ConstraintValidator<StoreExists, Lo
     private final StoreRepository storeRepository;
 
     @Override
+    public void initialize(StoreExists constraintAnnotation) {
+        ConstraintValidator.super.initialize(constraintAnnotation);
+    }
+
+    @Override
     public boolean isValid(Long storeId, ConstraintValidatorContext context) {
         if (storeId == null) {
             return false;

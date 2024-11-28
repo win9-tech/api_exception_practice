@@ -1,5 +1,6 @@
 package com.umcpractice.chapter_5.domain.member.dto.request;
 
+import com.umcpractice.chapter_5.validation.annotation.ExistCategories;
 import lombok.Getter;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class MemberRequestDto {
         Integer birthDay;
         String address;
         String specAddress;
+        @ExistCategories
         List<Long> preferCategory;
     }
 }

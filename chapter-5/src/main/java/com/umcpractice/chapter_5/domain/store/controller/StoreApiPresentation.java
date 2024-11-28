@@ -2,6 +2,7 @@ package com.umcpractice.chapter_5.domain.store.controller;
 
 import com.umcpractice.chapter_5.api.ApiResponse;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewResponse;
+import com.umcpractice.chapter_5.validation.annotation.PageAvailable;
 import com.umcpractice.chapter_5.validation.annotation.StoreExists;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -25,5 +26,5 @@ public interface StoreApiPresentation {
     @Parameters({
             @Parameter(name = "storeId", description = "가게의 아이디, path variable 입니다!")
     })
-    ApiResponse<ReviewResponse.ReviewPreViewListDTO> getReviewList(@StoreExists @PathVariable(name = "storeId") Long storeId, @RequestParam(name = "page") Integer page);
+    ApiResponse<ReviewResponse.ReviewPreViewListDTO> getReviewList(@StoreExists @PathVariable(name = "storeId") Long storeId, @PageAvailable @RequestParam(name = "page") Integer page);
 }
