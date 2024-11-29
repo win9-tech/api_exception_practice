@@ -1,6 +1,7 @@
 package com.umcpractice.chapter_5.domain.member.controller;
 
 import com.umcpractice.chapter_5.api.ApiResponse;
+import com.umcpractice.chapter_5.domain.member_mission.dto.MemberMissionResponse;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewResponse;
 import com.umcpractice.chapter_5.validation.annotation.MemberExists;
 import com.umcpractice.chapter_5.validation.annotation.PageAvailable;
@@ -26,4 +27,16 @@ public interface MemberApiPresentation {
             @Parameter(name = "memberId", description = "회원Id, path variable 입니다!(토큰이 없는 간단한 방식이라서 path variable 사용)")
     })
     ApiResponse<ReviewResponse.ReviewPreViewListDTO> getReviewList(@MemberExists @PathVariable(name = "memberId") Long storeId, @PageAvailable @RequestParam(name = "page") Integer page);
+
+    @Operation(summary = "내가 진행중인 미션 목록 API",description = "내가 진행중인 미션 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "acess 토큰 만료",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "acess 토큰 모양이 이상함",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+    })
+    @Parameters({
+            @Parameter(name = "memberId", description = "회원Id, path variable 입니다!(토큰이 없는 간단한 방식이라서 path variable 사용)")
+    })
+    ApiResponse<MemberMissionResponse.MemberMissionPreViewListDTO> getInProgressMissionList(@MemberExists @PathVariable(name = "memberId") Long storeId, @PageAvailable @RequestParam(name = "page") Integer page);
 }

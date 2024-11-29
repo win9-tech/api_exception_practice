@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 public class MemberMissionResponse {
 
@@ -17,5 +18,31 @@ public class MemberMissionResponse {
         String storeName;
         int reward;
         Date deadline;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberMissionPreViewDTO{
+        String storeName;
+        Long missionId;
+        String status;
+        Date deadline;
+        String missionSpec;
+        int reward;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MemberMissionPreViewListDTO{
+        List<MemberMissionResponse.MemberMissionPreViewDTO> memberMissionList;
+        Integer listSize;
+        Integer totalPage;
+        Long totalElements;
+        Boolean isFirst;
+        Boolean isLast;
     }
 }
