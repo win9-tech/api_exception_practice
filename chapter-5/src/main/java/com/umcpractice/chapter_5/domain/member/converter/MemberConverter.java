@@ -3,6 +3,8 @@ package com.umcpractice.chapter_5.domain.member.converter;
 import com.umcpractice.chapter_5.domain.member.dto.request.MemberRequestDto;
 import com.umcpractice.chapter_5.domain.member.dto.response.MemberResponseDto;
 import com.umcpractice.chapter_5.domain.member.entity.Member;
+import com.umcpractice.chapter_5.domain.member_mission.dto.MemberMissionResponse;
+import com.umcpractice.chapter_5.domain.member_mission.entity.MemberMission;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewResponse;
 import com.umcpractice.chapter_5.domain.review.entity.Review;
 import org.springframework.data.domain.Page;
@@ -55,5 +57,32 @@ public class MemberConverter {
                 .listSize(reviewPreViewDTOList.size())
                 .reviewList(reviewPreViewDTOList)
                 .build();
+    }
+
+    public static MemberMissionResponse.MemberMissionPreViewDTO memberMissionPreViewDTO(MemberMission memberMission) {
+            return MemberMissionResponse.MemberMissionPreViewDTO.builder()
+                    .storeName(memberMission.getMission().getStore().getName())
+                    .missionId(memberMission.getMission().getId())
+                    .status(memberMission.getStatus())
+                    .deadline(memberMission.getMission().getDeadline())
+                    .missionSpec(memberMission.getMission().getMissionSpec())
+                    .reward(memberMission.getMission().getReward())
+                    .build();
+    }
+
+    public static MemberMissionResponse.MemberMissionPreViewListDTO memberMissionPreViewListDTO(Page<MemberMission> memberMissionList) {
+            List<MemberMissionResponse.MemberMissionPreViewDTO> memberMissionPreViewDtoList = memberMissionList
+                    .stream()
+                    .map(MemberConverter::memberMissionPreViewDTO)
+                    .collect(Collectors.toList());
+
+            return MemberMissionResponse.MemberMissionPreViewListDTO.builder()
+                    .isLast(memberMissionList.isLast())
+                    .isFirst(memberMissionList.isFirst())
+                    .totalPage(memberMissionList.getTotalPages())
+                    .totalElements(memberMissionList.getTotalElements())
+                    .listSize(memberMissionPreViewDtoList.size())
+                    .memberMissionList(memberMissionPreViewDtoList)
+                    .build();
     }
 }

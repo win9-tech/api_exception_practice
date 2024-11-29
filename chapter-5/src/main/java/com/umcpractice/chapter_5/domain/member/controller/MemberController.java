@@ -6,6 +6,8 @@ import com.umcpractice.chapter_5.domain.member.dto.request.MemberRequestDto;
 import com.umcpractice.chapter_5.domain.member.dto.response.MemberResponseDto;
 import com.umcpractice.chapter_5.domain.member.entity.Member;
 import com.umcpractice.chapter_5.domain.member.service.MemberService;
+import com.umcpractice.chapter_5.domain.member_mission.dto.MemberMissionResponse;
+import com.umcpractice.chapter_5.domain.member_mission.entity.MemberMission;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewResponse;
 import com.umcpractice.chapter_5.domain.review.entity.Review;
 import com.umcpractice.chapter_5.validation.annotation.MemberExists;
@@ -37,5 +39,14 @@ public class MemberController implements MemberApiPresentation{
     ){
         Page<Review> reviewList = memberService.getReviewList(memberId, page);
         return ApiResponse.onSuccess(MemberConverter.reviewPreViewListDTO(reviewList));
+    }
+
+    @GetMapping("{memberId}/missions")
+    public ApiResponse<MemberMissionResponse.MemberMissionPreViewListDTO> getInProgressMissionList(
+            @MemberExists @PathVariable(name = "memberId") Long memberId,
+            @PageAvailable @RequestParam(name = "page") Integer page
+    ){
+        Page<MemberMission> memberMissionList = memberService.getInProgressMissionList(memberId, page);
+        return ApiResponse.onSuccess(MemberConverter.memberMissionPreViewListDTO(memberMissionList));
     }
 }
