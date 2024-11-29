@@ -1,5 +1,7 @@
 package com.umcpractice.chapter_5.domain.store.converter;
 
+import com.umcpractice.chapter_5.domain.mission.dto.MissionResponse;
+import com.umcpractice.chapter_5.domain.mission.entity.Mission;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewResponse;
 import com.umcpractice.chapter_5.domain.review.entity.Review;
 import org.springframework.data.domain.Page;
@@ -32,4 +34,31 @@ public class StoreConverter {
                 .reviewList(reviewPreViewDTOList)
                 .build();
     }
+
+    public static MissionResponse.MissionsPreViewDTO missionPreViewDTO(Mission mission){
+        return MissionResponse.MissionsPreViewDTO.builder()
+                .reward(mission.getReward())
+                .deadline(mission.getDeadline())
+                .createdAt(mission.getCreatedAt())
+                .missionSpec(mission.getMissionSpec())
+                .build();
+
+    }
+
+    public static MissionResponse.MissionPreViewListDTO missionPreViewListDTO(Page<Mission> missionList){
+
+        List<MissionResponse.MissionsPreViewDTO> missionPreViewDTOList = missionList.stream()
+                .map(StoreConverter::missionPreViewDTO).collect(Collectors.toList());
+
+        return MissionResponse.MissionPreViewListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
+                .build();
+    }
+
+
 }

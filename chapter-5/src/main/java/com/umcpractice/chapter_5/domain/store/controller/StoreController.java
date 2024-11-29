@@ -1,6 +1,8 @@
 package com.umcpractice.chapter_5.domain.store.controller;
 
 import com.umcpractice.chapter_5.api.ApiResponse;
+import com.umcpractice.chapter_5.domain.mission.dto.MissionResponse;
+import com.umcpractice.chapter_5.domain.mission.entity.Mission;
 import com.umcpractice.chapter_5.domain.review.dto.ReviewResponse;
 import com.umcpractice.chapter_5.domain.review.entity.Review;
 import com.umcpractice.chapter_5.domain.store.converter.StoreConverter;
@@ -27,5 +29,14 @@ public class StoreController implements StoreApiPresentation{
     ){
         Page<Review> reviewList = storeService.getReviewList(storeId,page);
         return ApiResponse.onSuccess(StoreConverter.reviewPreViewListDTO(reviewList));
+    }
+
+    @GetMapping("{storeId}/missions")
+    public ApiResponse<MissionResponse.MissionPreViewListDTO> getMissionList(
+            @StoreExists @PathVariable(name = "storeId") Long storeId,
+            @PageAvailable @RequestParam(name = "page") Integer page
+    ){
+        Page<Mission> missionList = storeService.getMissionList(storeId, page);
+        return ApiResponse.onSuccess(StoreConverter.missionPreViewListDTO(missionList));
     }
 }
