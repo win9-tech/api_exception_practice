@@ -28,6 +28,7 @@ public class MemberController implements MemberApiPresentation{
 
     @PostMapping
     public ApiResponse<MemberResponseDto.JoinResultDTO> join(@RequestBody @Valid MemberRequestDto.JoinDto request){
+        System.out.println(request.getPreferCategory());
         Member member = memberService.join(request);
         return ApiResponse.onSuccess(MemberConverter.toDto(member));
     }
