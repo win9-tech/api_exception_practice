@@ -5,6 +5,7 @@ import com.umcpractice.chapter_5.domain.member_agree.entity.MemberAgree;
 import com.umcpractice.chapter_5.domain.member_mission.entity.MemberMission;
 import com.umcpractice.chapter_5.domain.member_prefer.MemberPrefer;
 import com.umcpractice.chapter_5.domain.review.entity.Review;
+import com.umcpractice.chapter_5.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -48,6 +49,12 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @ColumnDefault("0")
     private Integer point;
 
@@ -62,4 +69,8 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 }

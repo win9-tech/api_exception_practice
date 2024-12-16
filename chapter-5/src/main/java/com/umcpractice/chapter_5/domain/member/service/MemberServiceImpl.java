@@ -17,6 +17,7 @@ import com.umcpractice.chapter_5.exception.handler.FoodCategoryHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class MemberServiceImpl implements MemberService{
 
+    private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
     private final MemberMissionRepository memberMissionRepository;
@@ -36,6 +38,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public Member join(MemberRequestDto.JoinDto request) {
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
         Member member = MemberConverter.toMember(request);
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(category -> foodCategoryRepository.findById(category).orElseThrow(()

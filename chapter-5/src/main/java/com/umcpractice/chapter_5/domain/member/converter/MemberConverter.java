@@ -26,10 +26,13 @@ public class MemberConverter {
     public static Member toMember(MemberRequestDto.JoinDto request){
 
         return Member.builder()
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .gender(request.getGender())
                 .address(request.getAddress())
                 .specAddress(request.getSpecAddress())
-                .gender(request.getGender())
-                .name(request.getName())
+                .role(request.getRole())
                 .memberPreferList(new ArrayList<>())
                 .build();
     }
