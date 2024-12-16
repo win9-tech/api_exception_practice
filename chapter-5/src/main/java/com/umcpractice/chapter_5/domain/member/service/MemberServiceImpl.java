@@ -38,6 +38,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     @Transactional
     public Member join(MemberRequestDto.JoinDto request) {
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
         Member member = MemberConverter.toMember(request);
         List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(category -> foodCategoryRepository.findById(category).orElseThrow(()
