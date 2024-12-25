@@ -1,47 +1,76 @@
 package com.umcpractice.chapter_5.domain.member.entity;
 
+import com.umcpractice.chapter_5.common.BaseEntity;
+import com.umcpractice.chapter_5.domain.member_agree.entity.MemberAgree;
+import com.umcpractice.chapter_5.domain.member_mission.entity.MemberMission;
+import com.umcpractice.chapter_5.domain.member_prefer.MemberPrefer;
+import com.umcpractice.chapter_5.domain.review.entity.Review;
+import com.umcpractice.chapter_5.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String name;
 
-    @Column(nullable = false)
-    private String gender;
-
-    @Column(nullable = false)
-    private String age;
-
-    @Column(nullable = false)
+    @Column(nullable = false, length = 40)
     private String address;
 
-    @Column(unique = true, name = "spec_address")
+    @Column(nullable = false, length = 40)
     private String specAddress;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR(10)")
+    private String gender;
+
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private String status;
 
-    @Column(nullable = false, name = "inactive_date")
-    private String inactiveAt;
+    private LocalDate inactiveDate;
 
-    @Column(nullable = false, name = "social_type")
-    private String socialType;
-
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String email;
 
     @Column(nullable = false)
-    private String point;
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @ColumnDefault("0")
+    private Integer point;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberAgree> memberAgreeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberPrefer> memberPreferList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Review> reviewList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberMission> memberMissionList = new ArrayList<>();
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 }
